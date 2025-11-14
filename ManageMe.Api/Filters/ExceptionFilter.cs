@@ -29,8 +29,6 @@ public class ExceptionFilter: IExceptionFilter
 
         var handler = _handlerContainer.ForException(exception.GetType());
 
-        var response = handler.Handle(exception);
-
-        context.Result = new UnprocessableEntityObjectResult(response);
+        context.Result = handler.Handle(exception);
     }
 }

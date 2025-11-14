@@ -1,4 +1,4 @@
-﻿namespace ManageMe.Application;
+﻿namespace ManageMe.Application.Services;
 
 public interface IApplicationLogger
 {

@@ -1,4 +1,4 @@
-﻿using ManageMe.Application;
+﻿using ManageMe.Application.Services;
 using ManageMe.Core;
 using Microsoft.AspNetCore.Identity;
 

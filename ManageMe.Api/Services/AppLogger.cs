@@ -1,4 +1,4 @@
-﻿using ManageMe.Application;
+﻿using ManageMe.Application.Services;
 
 namespace ManageMe.Api.Services;
 

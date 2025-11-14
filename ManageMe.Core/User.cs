@@ -1,4 +1,6 @@
-﻿namespace ManageMe.Core;
+﻿using System.Security.Claims;
+
+namespace ManageMe.Core;
 
 public class User
 {
@@ -28,7 +30,6 @@ public class User
 
     public void SetPassword(string password)
     {
-
         Password = password;
     }
 }

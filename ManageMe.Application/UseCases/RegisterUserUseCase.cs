@@ -1,7 +1,9 @@
 ﻿using ManageMe.Application.DTOs;
+using ManageMe.Application.Exceptions;
+using ManageMe.Application.Services;
 using ManageMe.Core;
 
-namespace ManageMe.Application;
+namespace ManageMe.Application.UseCases;
 
 public class RegisterUserUseCase(
     IUserRepository userRepository,

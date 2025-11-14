@@ -1,6 +1,6 @@
 ﻿using ManageMe.Core;
 
-namespace ManageMe.Application;
+namespace ManageMe.Application.Services;
 
 public interface IPasswordEncoder
 {

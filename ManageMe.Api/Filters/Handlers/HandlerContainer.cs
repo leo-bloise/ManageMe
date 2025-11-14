@@ -1,4 +1,4 @@
-﻿using ManageMe.Application;
+﻿using ManageMe.Application.Exceptions;
 
 namespace ManageMe.Api.Filters.Handlers;
 
@@ -27,7 +27,10 @@ public class HandlerContainer(ILogger<HandlerContainer> logger)
     {
         HandlerContainer container = new HandlerContainer(provider.GetRequiredService<ILogger<HandlerContainer>>());
 
+        container.Register<Exception>(provider.GetRequiredService<GeneralExceptionHandler>());
         container.Register<AppException>(provider.GetRequiredService<ApplicationExceptionHandler>());
+        container.Register<UnableToAuthenticateException>(provider.GetRequiredService<UnableToAuthenticateExceptionHandler>());
+
 
         return container;
     }
