@@ -1,9 +1,37 @@
 ﻿using ManageMe.Api.Filters;
+using ManageMe.Application;
+using ManageMe.Application.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ManageMe.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [TypeFilter<ExceptionFilter>]
-public abstract class ManageMeController: ControllerBase;
+public abstract class ManageMeController: ControllerBase
+{
+    protected Principal? BuildPrincipal()
+    {
+        if(User is null)
+        {
+            return null;
+        }
+
+        string? email = User.FindFirst(ClaimTypes.Email)?.Value;
+        string? name = User.FindFirst(ClaimTypes.Name)?.Value;
+        string? id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if(email is null || name is null || id is null)
+        {
+            throw new AppException("Impossible to recreate principal.");
+        }
+        
+        if(!int.TryParse(id, out int idParse))
+        {
+            throw new AppException("Impossible to recreate principal.");
+        }
+
+        return new Principal(idParse, email, name);
+    }
+}
