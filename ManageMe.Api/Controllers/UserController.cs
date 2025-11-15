@@ -1,5 +1,5 @@
 ﻿using ManageMe.Api.Controllers.DTOs.Output;
-using ManageMe.Application;
+using ManageMe.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +11,7 @@ public class UserController : ManageMeController
     [HttpGet("me")]
     public ActionResult Me()
     {
-        Principal? principal = BuildPrincipal();
-
-        if (principal is null) return new UnauthorizedObjectResult(null);
+        Principal principal = BuildPrincipal();
 
         return Ok(BaseApiResponse.WithData($"Hello, {principal.Name}", new Dictionary<string, dynamic>()
         {

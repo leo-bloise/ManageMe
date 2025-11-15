@@ -23,5 +23,8 @@ public class TransactionEntityTypeConfiguration : IEntityTypeConfiguration<Trans
                 v => v == 0 ? Movement.OUTGOING : Movement.INCOMING
             )
             .IsRequired();
+
+        builder.Property(t => t.CreatedAt)
+            .ValueGeneratedOnAdd();
     }
 }

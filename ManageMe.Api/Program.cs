@@ -58,6 +58,7 @@ public class Program
         builder.Services.AddSingleton<GeneralExceptionHandler>();
         builder.Services.AddScoped<ITokenFactory, TokenFactory>();
         builder.Services.Configure<JwtSettings>(builder.Configuration.GetRequiredSection(JwtSettings.Option));
+        builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
         #endregion Infrastructure
 
@@ -84,6 +85,8 @@ public class Program
 
         builder.Services.AddScoped<RegisterUserUseCase>();
         builder.Services.AddScoped<AuthenticateUserUseCase>();
+        builder.Services.AddScoped<RegisterTransactionUseCase>();
+        builder.Services.AddScoped<GetTransactionsUseCase>();
 
         #endregion
 

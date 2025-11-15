@@ -6,7 +6,7 @@ public enum Movement
     INCOMING,
 }
 
-public class Transaction
+public class Transaction : IHasDate
 {
     public int Id { get; private set; }
 
@@ -18,12 +18,15 @@ public class Transaction
 
     public int UserId { get; private set; }
 
-    public Transaction(int id, decimal amount, string description, Movement movement, User user)
+    public DateTime CreatedAt {  get; private set; }
+
+    public Transaction(int id, decimal amount, string description, Movement movement, int userId, DateTime createdAt)
     {
         Id = id;
         Amount = amount;
         Description = description;
         Movement = movement;
-        UserId = user.Id;
+        UserId = userId;
+        CreatedAt = createdAt;
     }
 }

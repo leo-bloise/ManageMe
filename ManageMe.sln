@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11111.16 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageMe.Api", "ManageMe.Api\ManageMe.Api.csproj", "{E7ACA0B1-0377-44D6-A72E-81969A1E93C8}"
 EndProject
@@ -15,9 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageMe.Application", "Man
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
+		0_CREATE_USER.sql = 0_CREATE_USER.sql
+		1_CREATE_TRANSACTIONS.sql = 1_CREATE_TRANSACTIONS.sql
+		2_ALTER_TRANSACTIONS.sql = 2_ALTER_TRANSACTIONS.sql
 		docker-compose.yaml = docker-compose.yaml
-		V0_CREATE_USER.sql = V0_CREATE_USER.sql
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{689FA886-5D07-4366-BF6B-7B6A93BB00F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageMe.Filters", "ManageMe.Filters\ManageMe.Filters.csproj", "{BFBB21BA-638A-43BA-96F3-F9EF58321807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,12 +83,26 @@ Global
 		{36BCC058-7B3A-4438-8F47-49A3000F8D67}.Release|x64.Build.0 = Release|Any CPU
 		{36BCC058-7B3A-4438-8F47-49A3000F8D67}.Release|x86.ActiveCfg = Release|Any CPU
 		{36BCC058-7B3A-4438-8F47-49A3000F8D67}.Release|x86.Build.0 = Release|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Debug|x64.Build.0 = Debug|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Debug|x86.Build.0 = Debug|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Release|x64.ActiveCfg = Release|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Release|x64.Build.0 = Release|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Release|x86.ActiveCfg = Release|Any CPU
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
+		{689FA886-5D07-4366-BF6B-7B6A93BB00F3} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
+		{BFBB21BA-638A-43BA-96F3-F9EF58321807} = {689FA886-5D07-4366-BF6B-7B6A93BB00F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF4969FE-09D6-4B60-BBE8-22CB27950AEB}
