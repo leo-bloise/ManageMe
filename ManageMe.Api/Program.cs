@@ -45,9 +45,12 @@ public class Program
         builder.Services.AddAuthorization();
 
         builder.Services.AddDbContext<ManageMeContext>(
-            options => options.UseSqlServer(
-                builder.Configuration.GetConnectionString("DefaultConnection")
-            )
+            options => {
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                );
+                options.UseLazyLoadingProxies();
+            }
         );
 
         builder.Services.AddSingleton<ApplicationExceptionHandler>();

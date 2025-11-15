@@ -26,5 +26,11 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder
             .Property(u => u.Password)
             .IsRequired();
+
+        builder
+            .HasMany(u => u.Transactions)
+            .WithOne()
+            .HasForeignKey(t => t.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

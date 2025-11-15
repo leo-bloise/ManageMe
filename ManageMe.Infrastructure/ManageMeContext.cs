@@ -6,6 +6,9 @@ namespace ManageMe.Infrastructure;
 public class ManageMeContext: DbContext
 {
     public DbSet<User> Users { get; set; }
+
+    public DbSet<Transaction> Transactions { get; set; }
+
     public ManageMeContext(DbContextOptions<ManageMeContext> options): base(options)
     {
     }

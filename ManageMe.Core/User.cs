@@ -12,6 +12,8 @@ public class User
 
     public string Email { get; private set; }
 
+    public ICollection<Transaction> Transactions { get; private set; }
+
     public User(int id, string name, string email, string password)
     {
         Id = id;
