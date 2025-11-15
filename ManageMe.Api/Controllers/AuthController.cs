@@ -17,7 +17,7 @@ public class AuthController(AuthenticateUserUseCase authenticateUserUseCase, Reg
 
         User user = registerUserUseCase.Execute(new RegisterUser(payload.Email, payload.Password, payload.Name));
 
-        return Created("/me", BaseApiResponse.WithData($"User with id {user.Id} created successfully", new()
+        return Created("/user/me", BaseApiResponse.WithData($"User with id {user.Id} created successfully", new()
         {
             { "user", new RegisteredUser(user.Id, user.Name, user.Email)}
         }));
@@ -30,7 +30,7 @@ public class AuthController(AuthenticateUserUseCase authenticateUserUseCase, Reg
 
         Token token = authenticateUserUseCase.Execute(new Credentials(credentials.Email, credentials.Password));
 
-        return Created("/me", BaseApiResponse.WithData("Authenticated successfuly", new Dictionary<string, dynamic>
+        return Created("/user/me", BaseApiResponse.WithData("Authenticated successfuly", new Dictionary<string, dynamic>
         {
             {"token", token.ToString() }
         }));
