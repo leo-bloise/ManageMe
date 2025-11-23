@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionTokenCache } from "./server/session";
+import { Logger } from "./server/Logger";
 
 const anonymousUrls = ['/', '/register'];
 
@@ -8,9 +9,12 @@ const extractPath = (url: string) => {
     return parsed.pathname;
 };
 
+const logger = new Logger('proxy-middleware');
+
 export async function proxy(request: NextRequest) {
     const path = extractPath(request.url);
-    console.log('Middleware: proxying request', path);
+    
+    logger.info(`Proxy middleware invoked for path: ${path}`);
 
     const token = await getSessionTokenCache();
 
