@@ -15,7 +15,10 @@ export class AuthApi extends BaseApi {
             const request = this.buildRequest('/auth', 'POST', { email, password });
             const response = await fetch(request);
 
-            console.log(response);
+            if(response.status == 401) {
+                this.logger.info('Login failed: Unauthorized');
+                return new ApiResponse('Invalid email or password.', {}, Date.now().toString(), false);
+            }
 
             this.logger.debug('Login request sent, processing response');
 

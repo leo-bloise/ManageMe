@@ -1,4 +1,4 @@
-export abstract class ApiResponse {
+export class ApiResponse {
     constructor(
         public message: string,
         public data: { [key: string]: string },
