@@ -1,99 +1,64 @@
+import { AuthApi } from '@/server/AuthApi';
 import { createSessionTokenCookie } from '@/server/session';
-import { NextApiRequest } from 'next';
-import { cookies } from 'next/headers';
+import { useMessageErrorProcessor } from '@/server/utils/hooks/useMessageErrorProcessor';
 import * as z from 'zod';
-
-type LoginData = {
-    email: string;
-    password: string;
-}
-
-type SubmitFunction = (payload: LoginData) => Promise<{
-    success: boolean;
-    message: string;
-    data: null | { [key: string]: string }
-}>;
 
 const LoginDataSchema = z.object({
     email: z.string().email(),
     password: z.string().min(3),
 });
 
-const submitLogin: SubmitFunction = async (payload: LoginData) => {
-    try {
-        const response = await fetch(`${process.env.MANAGE_ME_URL}/auth`, {
-            method: 'POST',
-            body: JSON.stringify(
-                LoginDataSchema.parse(payload)
-            ),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if(response.status == 401) return {
-            success: false,
-            message: 'Invalid email or password',
-            data: null
-        }
-
-        const responseBody = await response.json();
-
-        return {
-            success: true,
-            message: 'Login successful',
-            data: {
-                token: responseBody.data.token as string
-            }
-        }
-
-    } catch(error) {
-        let errorMap: { [key: string]: string } = {};
-        console.error('Error submitting login:', error);
-
-        if(error instanceof z.ZodError) { 
-            error.issues.forEach(issue => {
-                errorMap[issue.path.join('.')] = issue.message;
-            });
-
-            return {
-                success: false,
-                message: 'Validation errors occurred',
-                data: errorMap
-            }
-        }
-
-        return {
-            success: false,
-            message: 'An unexpected error occurred',
-            data: null
-        }
-    }
-}
-
 export async function POST(request: Request) {
-    const requestData = await request.json();
+    const messageErrorProcessor = useMessageErrorProcessor();
 
-    const {
-        data,
-        message,
-        success
-    } = await submitLogin(requestData);    
+    try {
+        const authApi = new AuthApi(process.env.MANAGE_ME_URL || '');
 
-    console.debug('Login attempt result:', { success, message, data });
-    
-    if(!success) {
+        const requestData = await request.json();
+
+        const payload = LoginDataSchema.parse(requestData);
+
+        const { data, message, success } = await authApi.login(payload.email, payload.password);
+
+        if (!success) {
+            return new Response(JSON.stringify({
+                message,
+                data,
+                success
+            }), { status: 401 });
+        }
+
+        if(!data?.token) {
+            return new Response(JSON.stringify({
+                message: 'Login failed. Please, talk with the administrator.',
+                success: false
+            }), { status: 500 });
+        }
+
+        await createSessionTokenCookie(data.token);
+
         return new Response(JSON.stringify({
             message,
-            data,
             success
-        }), { status: 401 });
+        }));
+    } catch(error: unknown) {
+        console.error('Error in /api/auth route:', error);
+
+        if(error instanceof z.ZodError) {
+            const fieldErrorMessage: {
+                [key: string]: string
+            } = messageErrorProcessor.processErrorMessage(error);
+
+            return new Response(JSON.stringify({
+                message: 'Invalid request data',
+                success: false,
+                data: fieldErrorMessage
+            }), { status: 422 });
+        }
+
+        return new Response(JSON.stringify({
+            message: 'Internal server error',
+            success: false
+        }), { status: 500 });
     }
-
-    await createSessionTokenCookie(data!.token);
-
-    return new Response(JSON.stringify({
-        message,
-        success
-    }));
 }
