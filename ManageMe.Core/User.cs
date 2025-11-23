@@ -14,6 +14,8 @@ public class User
 
     public virtual ICollection<Transaction> Transactions { get; private set; }
 
+    public virtual ICollection<Category> Categories { get; private set; }
+
     public User(int id, string name, string email, string password)
     {
         Id = id;

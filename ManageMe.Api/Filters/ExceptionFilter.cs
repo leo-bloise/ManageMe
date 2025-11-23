@@ -27,7 +27,9 @@ public class ExceptionFilter: IExceptionFilter
 
         _logger.LogInformation($"Exception captured - {exception.GetType().Name}");
 
-        var handler = _handlerContainer.ForException(exception.GetType());
+        IExceptionHandler? handler = _handlerContainer.ForException(exception.GetType());
+
+        if (handler == null) throw exception;
 
         context.Result = handler.Handle(exception);
     }

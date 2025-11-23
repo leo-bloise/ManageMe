@@ -30,7 +30,11 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder
             .HasMany(u => u.Transactions)
             .WithOne()
-            .HasForeignKey(t => t.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(t => t.UserId);
+
+        builder
+            .HasMany(u => u.Categories)
+            .WithOne()
+            .HasForeignKey(c => c.UserId);
     }
 }

@@ -9,6 +9,8 @@ public class ManageMeContext: DbContext
 
     public DbSet<Transaction> Transactions { get; set; }
 
+    public DbSet<Category> Categories { get; set; }
+
     public ManageMeContext(DbContextOptions<ManageMeContext> options): base(options)
     {
     }

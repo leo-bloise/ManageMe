@@ -55,12 +55,14 @@ public class Program
 
         builder.Services.AddSingleton<ApplicationExceptionHandler>();
         builder.Services.AddSingleton<UnableToAuthenticateExceptionHandler>();
+        builder.Services.AddSingleton<UnauthorizedAccessExceptionHandler>();
         builder.Services.AddSingleton<GeneralExceptionHandler>();
         builder.Services.AddScoped<ITokenFactory, TokenFactory>();
         builder.Services.Configure<JwtSettings>(builder.Configuration.GetRequiredSection(JwtSettings.Option));
         builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
         builder.Services.AddScoped<Ledger>();
         builder.Services.AddScoped<Calendar>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         #endregion Infrastructure
 
@@ -90,6 +92,7 @@ public class Program
         builder.Services.AddScoped<RegisterTransactionUseCase>();
         builder.Services.AddScoped<GetTransactionsUseCase>();
         builder.Services.AddScoped<CalculateBalanceOfMonthUseCase>();
+        builder.Services.AddScoped<CreateCategoryUseCase>();
 
         #endregion
 

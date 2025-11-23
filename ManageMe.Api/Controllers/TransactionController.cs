@@ -19,7 +19,7 @@ public class TransactionController(
     {
         Principal principal = BuildPrincipal();
 
-        Transaction transaction = registerTransactionUseCase.Register(new TransactionData(transactionData.Amount, transactionData.Description, transactionData.Movement, principal));
+        Transaction transaction = registerTransactionUseCase.Register(new TransactionData(transactionData.Amount, transactionData.Description, transactionData.Movement, principal, transactionData.CategoryId));
 
         return Created($"/{transaction.Id}", BaseApiResponse.WithData("Transaction created successfully", new()
         {

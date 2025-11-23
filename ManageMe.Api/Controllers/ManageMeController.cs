@@ -15,7 +15,7 @@ public abstract class ManageMeController: ControllerBase
     {
         if(User is null)
         {
-            throw new AppException("Impossible to recreate principal");
+            throw new UnauthorizedAccessException();
         }
 
         string? email = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -24,12 +24,12 @@ public abstract class ManageMeController: ControllerBase
 
         if(email is null || name is null || id is null)
         {
-            throw new AppException("Impossible to recreate principal.");
+            throw new UnauthorizedAccessException();
         }
         
         if(!int.TryParse(id, out int idParse))
         {
-            throw new AppException("Impossible to recreate principal.");
+            throw new UnauthorizedAccessException();
         }
 
         return new Principal(idParse, email, name);

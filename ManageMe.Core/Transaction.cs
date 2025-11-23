@@ -20,7 +20,9 @@ public class Transaction : IHasDate
 
     public DateTime CreatedAt {  get; private set; }
 
-    public Transaction(int id, decimal amount, string description, Movement movement, int userId, DateTime createdAt)
+    public int CategoryId { get; private set; }
+
+    public Transaction(int id, decimal amount, string description, Movement movement, int userId, DateTime createdAt, int categoryId)
     {
         Id = id;
         Amount = amount;
@@ -28,5 +30,6 @@ public class Transaction : IHasDate
         Movement = movement;
         UserId = userId;
         CreatedAt = createdAt;
+        CategoryId = categoryId;
     }
 }

@@ -11,4 +11,7 @@ public record TransactionDataInput(
     [MinLength(3)]
     string Description,
     [Required]
-    Movement Movement);
+    Movement Movement,
+    [Range(0, int.MaxValue)]
+    int CategoryId
+);

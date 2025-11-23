@@ -6,8 +6,9 @@ public record TransactionData(
     decimal Amount,
     string Description,
     Movement Movement,
-    Principal Principal
-    );
+    Principal Principal,
+    int CategoryId
+);
 
 public class RegisterTransactionUseCase(ITransactionRepository transactionRepository)
 {
@@ -19,7 +20,8 @@ public class RegisterTransactionUseCase(ITransactionRepository transactionReposi
             data.Description,
             data.Movement,
             data.Principal.Id,
-            DateTime.Now
+            DateTime.Now,
+            data.CategoryId
         );
 
         return transactionRepository.Create(transaction);
