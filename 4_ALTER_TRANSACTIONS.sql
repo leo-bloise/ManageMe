@@ -1,0 +1,1 @@
+ALTER TABLE [Transactions] ADD [CategoryId] INT REFERENCES Categories(Id);

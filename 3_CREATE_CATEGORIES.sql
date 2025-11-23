@@ -1,0 +1,6 @@
+CREATE TABLE [Categories] (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Name NVARCHAR(25) NOT NULL,
+	UserId INT NOT NULL REFERENCES Users(Id),
+	CONSTRAINT UQ_Categories_UserId_Name UNIQUE (Name, UserId)
+);
