@@ -67,6 +67,7 @@ const loginStrategy = async (formData: FormData): Promise<LoginFormState> => {
         return {
             loading: false,
             errors: {
+                ...body.data,
                 geral: body.message
             },
             success: false

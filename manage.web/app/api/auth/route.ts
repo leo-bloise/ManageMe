@@ -4,8 +4,16 @@ import { useMessageErrorProcessor } from '@/server/utils/hooks/useMessageErrorPr
 import * as z from 'zod';
 
 const LoginDataSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(3),
+    email: z.string({
+        message: 'Email must be provided'
+    }).email({
+        message: 'Email must be valid'
+    }),
+    password: z.string({
+        message: 'Password must be provided'
+    }).min(3, {
+        message: 'Password must have, at least, 3 chars'
+    }),
 });
 
 export async function POST(request: Request) {
