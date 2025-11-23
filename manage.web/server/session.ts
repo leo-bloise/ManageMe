@@ -19,3 +19,9 @@ export async function getSessionTokenCache() {
 
     return tokenCookie?.value;
 }
+
+export async function deleteSessionTokenCache() {
+    const cookieStore = await cookies();
+
+    cookieStore.delete('token');
+}
