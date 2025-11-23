@@ -6,6 +6,7 @@ export class ZodMessageErrorProcessor implements IMessageErrorProcessor<z.ZodErr
         const fieldErrorMessage: { [key: string]: string } = {};
 
         data.issues.forEach(issue => {
+            console.log(issue);
             fieldErrorMessage[issue.path.join('.')] = issue.message;    
         });
 

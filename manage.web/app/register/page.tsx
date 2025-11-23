@@ -1,5 +1,8 @@
+import LoginForm from "@/components/LoginForm";
+import { Container } from "@/components/ui/Container";
+
 export default function Page() {
-    return <main>
-        <h1>Register Page</h1>
-    </main>
+    return <Container>
+        <LoginForm mode="register" />
+    </Container>
 }

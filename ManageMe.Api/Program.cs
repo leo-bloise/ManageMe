@@ -1,3 +1,4 @@
+using ManageMe.Api.Controllers.DTOs.Output;
 using ManageMe.Api.Filters.Handlers;
 using ManageMe.Api.Options;
 using ManageMe.Api.Services;
@@ -7,6 +8,7 @@ using ManageMe.Core;
 using ManageMe.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -22,6 +24,25 @@ public class Program
         #region Infrastructure
 
         builder.Services.AddControllers();
+
+        builder.Services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.InvalidModelStateResponseFactory = context =>
+            {
+                Dictionary<string, dynamic> messages = new();
+
+                var errors = context.ModelState.Where(x => x.Value.Errors.Any());
+
+                foreach(var error in errors)
+                {
+                    messages[error.Key.ToCamelCase()] = error.Value!.Errors.First().ErrorMessage;
+                }
+
+                var response = BaseApiResponse.WithData("Invalid data provided", messages);
+
+                return new UnprocessableEntityObjectResult(response);
+            };
+        });
         
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
