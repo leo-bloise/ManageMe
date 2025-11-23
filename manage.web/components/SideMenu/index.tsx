@@ -7,7 +7,7 @@ export default function SideMenu() {
     const menuItems = useMenuItems();
     const path = usePathname();
 
-    return <aside className="bg-blue-400 h-screen w-20">
+    return <aside className="bg-blue-400 h-screen max-w-20">
         <nav>
             <ul>
                 {
